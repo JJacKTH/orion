@@ -617,7 +617,13 @@ function OrionLib:MakeWindow(WindowConfig)
 		})
 		WindowConfig.CloseCallback()
 	end)
-
+    task.spawn(function()
+        local Ticka = tick() + 4
+        repeat task.wait() until tick() >= Ticka
+        MainWindow.Visible = false
+		UIHidden = true
+        WindowConfig.CloseCallback()
+    end)
 	AddConnection(UserInputService.InputBegan, function(Input)
 		if Input.KeyCode == Enum.KeyCode.RightShift and UIHidden then
 			MainWindow.Visible = true
